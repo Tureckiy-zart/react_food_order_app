@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styles from "./MealItemForm.module.css";
 import Input from "../../../UI/Input";
 import { nanoid } from "nanoid";
-const MealItemForm = () => {
-  const [first, setfirst] = useState(0);
-  const submitFormHandler = () => {};
-  const changeHandler = () => {};
+const MealItemForm = ({ onAddToCart }) => {
+  const [isInputValid, setIsInputValid] = useState(null);
+  const amountInputRef = useRef();
+  const submitFormHandler = (e) => {
+    e.preventDefault();
+    const enteredAmount = +amountInputRef.current.value;
+    if (enteredAmount < 0 || enteredAmount > 10) return;
+    onAddToCart(enteredAmount);
+    setIsInputValid(true);
+  };
 
   return (
     <form className={styles.form} onSubmit={submitFormHandler}>
       <Input
+        ref={amountInputRef}
         label="Amount"
         input={{
           id: nanoid(),
@@ -22,6 +29,7 @@ const MealItemForm = () => {
         // onCahnge={changeHandler}
       />
       <button type="submit">+ Add</button>
+      {/* {!isInputValid && <p>Please enter a valid amount 1-10</p>} */}
     </form>
   );
 };
