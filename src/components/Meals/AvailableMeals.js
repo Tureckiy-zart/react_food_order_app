@@ -4,8 +4,6 @@ import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 
 const AvailableMeals = () => {
-  console.log("DUMMY_MEALS :>> ", DUMMY_MEALS);
-
   return (
     <section className={styles.meals}>
       <Card>
